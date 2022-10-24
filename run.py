@@ -86,7 +86,7 @@ while True:
     g = geocoder.ip('me')
     [lat, lng] = g.latlng
     # ISEN 50.633992, 3.048755
-    for station in get_nearest_station(50.633992, 3.048755):
+    for station in get_nearest_station(lat, lng):
         # print bike_availbale and stand_availbale for the 3 nearest stations to your location
         data = db.datas.find_one(
             {"station_id": station["_id"]}, sort=[("date", -1)])
