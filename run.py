@@ -67,7 +67,7 @@ def get_nearest_station(lat, lng):
 
 
 while True:
-    print('update')
+    print('\n************ UPDATE ************ \n')
     vlilles = get_vlille()
     datas = [
         {
@@ -86,11 +86,12 @@ while True:
     g = geocoder.ip('me')
     [lat, lng] = g.latlng
     # ISEN 50.633992, 3.048755
-    for station in get_nearest_station(lat, lng):
+    for station in get_nearest_station(50.633992, 3.048755):
         # print bike_availbale and stand_availbale for the 3 nearest stations to your location
         data = db.datas.find_one(
             {"station_id": station["_id"]}, sort=[("date", -1)])
-        print(station["name"], ': ', data["bike_availbale"],
-              ' vélos disponibles, ', data["stand_availbale"], ' places disponibles')
+        print(station["name"], ':\n    - ', data["bike_availbale"], ' vélos disponibles, ', data["stand_availbale"], '\n    - places disponibles\n    - distance : ',
+              round(geocoder.distance([50.633992, 3.048755], [station["geometry"]["coordinates"][1], station["geometry"]["coordinates"][0]]) * 1000), 'm')
+        # print lenght between your location and the station with latitude and longitude
 
     time.sleep(10)
